@@ -40,6 +40,8 @@ $messages = @{
         ProtectedOverride = 'Windows has a safeguard or an override at user priority or higher.'
         Blocked = 'Windows has a higher-priority setting that disables this feature.'
         Applied = 'Boot override saved. Restart Windows and reopen this script to check the runtime flag.'
+        AdminRequired = 'Changing the taskbar setting requires administrator access. Approve the Windows prompt to continue.'
+        AdminFailed = 'Administrator access was not granted or the prompt could not open. To retry, right-click the script and choose Run as administrator. Windows reported: {0}'
         Busy = 'Another instance is changing the setting.'
         Restored = 'The script override was removed. Restart Windows to finish restoring the default.'
         NoOverride = 'No override created by this script was found.'
@@ -65,6 +67,8 @@ $messages = @{
         ProtectedOverride = '检测到系统保护，或已有优先级不低于用户设置的覆盖项。'
         Blocked = 'Windows 有优先级更高的设置禁用了此功能。'
         Applied = '已写入启动覆盖项。请重启 Windows，然后重新打开脚本检查功能标志。'
+        AdminRequired = '修改任务栏设置需要管理员权限。请在 Windows 弹窗中允许后继续。'
+        AdminFailed = '未获得管理员权限，或 Windows 无法打开授权提示。若要重试，请右键点击脚本并选择「以管理员身份运行」。Windows 返回：{0}'
         Busy = '另一个脚本实例正在更改设置。'
         Restored = '已移除脚本写入的覆盖项。请重启 Windows 以恢复默认行为。'
         NoOverride = '没有找到由此脚本写入的覆盖项。'
@@ -216,6 +220,7 @@ function Enable-Animation {
 function Invoke-Change([string]$Action) {
     $principal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
     if (-not $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+        Write-Host $ui.AdminRequired
         $quotedPath = "'" + $Path.Replace("'", "''") + "'"
         $command = @"
 `$p = $quotedPath
@@ -225,8 +230,12 @@ if (!`$m.Success) { exit 2 }
 & ([scriptblock]::Create(`$s.Substring(`$m.Index + `$m.Length))) -Path `$p -Mode '$Action' -Language '$Language' -PauseOnExit
 "@
         $encoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($command))
-        $child = Start-Process -FilePath (Join-Path $PSHOME 'powershell.exe') -Verb RunAs `
-            -ArgumentList '-NoLogo', '-NoProfile', '-EncodedCommand', $encoded -Wait -PassThru
+        try {
+            $child = Start-Process -FilePath (Join-Path $PSHOME 'powershell.exe') -Verb RunAs `
+                -ArgumentList '-NoLogo', '-NoProfile', '-EncodedCommand', $encoded -Wait -PassThru
+        } catch {
+            throw ($ui.AdminFailed -f $_.Exception.Message)
+        }
         $script:launchedElevated = $true
         return $child.ExitCode
     }

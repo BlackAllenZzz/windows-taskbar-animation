@@ -40,7 +40,7 @@ TaskbarAnimation.cmd apply
 TaskbarAnimation.cmd restore
 ```
 
-`status` 只读取状态。`apply` 和 `restore` 需要管理员权限，并在重启后完成。不带参数运行会显示数字菜单。
+`status` 只读取状态，无需管理员权限。普通权限下运行 `apply`、`restore` 或对应的菜单选项时，脚本会先说明为什么需要管理员权限，再打开 Windows 授权提示。如果弹窗无法打开，可以右键点击脚本并选择 **以管理员身份运行**。改动成功后请重启 Windows。不带参数运行会显示数字菜单。
 
 ## 脚本修改的位置
 

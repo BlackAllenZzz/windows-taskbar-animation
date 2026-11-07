@@ -40,7 +40,7 @@ TaskbarAnimation.cmd apply
 TaskbarAnimation.cmd restore
 ```
 
-`status` is read-only. `apply` and `restore` request administrator access and require a restart to finish. Running with no argument opens the numbered menu.
+`status` is read-only and needs no administrator access. When you use `apply`, `restore`, or the equivalent menu option without administrator access, the script explains why it needs access and opens the Windows prompt. If the prompt cannot open, you can right-click the file and choose **Run as administrator**. Restart Windows after a successful change. Running with no argument opens the numbered menu.
 
 ## What changes
 
