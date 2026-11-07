@@ -3,11 +3,15 @@
 <details name="readme-language">
 <summary><strong>简体中文</strong></summary>
 
+<a id="readme-zh-cn"></a>
+
+[English](#user-content-readme-en) · **简体中文**
+
 这是一个免安装脚本，可尝试启用自动隐藏任务栏的新版滑动动画。它使用 Windows 11 自带的 Windows PowerShell 和系统功能开关，也可以通过同一个脚本撤销。
 
 ## 快速开始
 
-1. 打开 [`TaskbarAnimation.cmd`](TaskbarAnimation.cmd)，点 GitHub 的 **Download raw file** 下载原文件。
+1. 从 [GitHub Releases 下载 `TaskbarAnimation.cmd`](https://github.com/BlackAllenZzz/windows-taskbar-animation/releases/latest/download/TaskbarAnimation.cmd)。也可以在仓库中查看[脚本源码](TaskbarAnimation.cmd)。
 2. 在 Windows 的 **设置 → 个性化 → 任务栏 → 任务栏行为** 中开启 **自动隐藏任务栏**。如果之前关过动画，请在 **设置 → 辅助功能 → 视觉效果** 中恢复 **动画效果**。
 3. 双击 `TaskbarAnimation.cmd`。菜单默认是英文，输入 **3** 切换到简体中文，再输入 **3** 可切回英文。语言选择仅在当前运行期间有效。
 4. 输入 **1**，通过 Windows 的管理员提示，在方便时重启 Windows。
@@ -56,11 +60,15 @@ TaskbarAnimation.cmd restore
 <details name="readme-language" open>
 <summary><strong>English</strong></summary>
 
+<a id="readme-en"></a>
+
+**English** · [简体中文](#user-content-readme-zh-cn)
+
 A portable Windows script that tries to enable the newer slide animation for an auto-hidden taskbar. It uses a Windows feature flag and runs with the Windows PowerShell included in Windows 11. You can undo the change from the same script.
 
 ## Quick start
 
-1. Download [`TaskbarAnimation.cmd`](TaskbarAnimation.cmd) using GitHub’s **Download raw file** button.
+1. Download [`TaskbarAnimation.cmd` from GitHub Releases](https://github.com/BlackAllenZzz/windows-taskbar-animation/releases/latest/download/TaskbarAnimation.cmd). You can also [view the script source](TaskbarAnimation.cmd).
 2. In Windows, open **Settings → Personalization → Taskbar → Taskbar behaviors** and turn on **Automatically hide the taskbar**. If you previously turned off animations, turn them back on under **Settings → Accessibility → Visual effects**.
 3. Double-click `TaskbarAnimation.cmd`. The menu starts in English. Enter **3** for Simplified Chinese, or enter **3** again to return to English. The choice applies to the current session.
 4. Enter **1**, approve the Windows administrator prompt, and restart Windows when you are ready.
